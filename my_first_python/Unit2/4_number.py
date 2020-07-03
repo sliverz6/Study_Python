@@ -12,7 +12,13 @@
 
 
 ##### 문자열로 변환하기 (str함수) #####
-# 파이썬은 정수(int)와 문자열(str)을 연결할 수 없다.
+# # 파이썬은 정수(int)와 문자열(str)을 연결할 수 없다.
+# age = 23
+# message = 'Happy ' + str(age) + 'rd Birthday!'
+# print(message)
+
+# print(0.2 + 0.1)
+
 age = 23
-message = 'Happy ' + str(age) + 'rd Birthday!'
-print(message)
+message = "Happy " + str(age) + "rd Birthday!"
+print(message) # 에러
