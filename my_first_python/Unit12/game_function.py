@@ -1,13 +1,17 @@
 import sys
-
 import pygame
 
-def check_keydown_events(event, ship):
+from bullet import Bullet
+
+def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """키를 누르는 이벤트에 응답합니다."""
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
+    elif event.key == pygame.K_SPACE:
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)
 
 def check_keyup_events(event, ship):
     """키에서 손을 떼는 이벤트에 응답합니다."""
@@ -16,21 +20,22 @@ def check_keyup_events(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def check_events(ship):
-    """키보드와 마우스 이벤트에 응답합니다."""
+def check_events(ai_settings, screen, ship, bullets):
+    """키보드와 마우스 이벤트에 응답합니다"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ship)
+            check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
-def update_screen(ai_settings, screen, ship):
-    """화면에 있는 이미지를 업데이트하고 새 화면에 그립니다."""
-     # 루프를 실행할 때마다 화면을 다시 그립니다.
+def update_screen(ai_settings, screen, ship, bullets):
+    """화면에 있는 이미지를 업데이트하고 새 화면에 그립니다"""
     screen.fill(ai_settings.bg_color)
+    for bullet in bullets.sprites():
+        bullet.draw_bullet()
     ship.blitme()
 
-    # 가장 최근에 그린 화면을 표시합니다.
+    # 가장 최근에 그린 화면을 표시합니다. 
     pygame.display.flip()

@@ -1,21 +1,22 @@
 import pygame
 
 class Ship():
-    def __init__(self, ai_settings, screen):
+
+    def __init__(self, ai_settings ,screen):
         """우주선을 초기화하고 시작 위치를 지정합니다."""
         self.screen = screen
-        self.ai_settings = ai_settings
+        self.ai_setting = ai_settings
 
-        # 우주선 이미지를 불러오고 이미지의 rect 객체를 설정합니다. 
-        self.image = pygame.image.load('images/ship.bmp')
+        # 우주선 이미지를 불러오고 이미지의 rect 객체 설정
+        self.image = pygame.image.load("images/ship.bmp")
         self.rect = self.image.get_rect()
-        self.screen_rect = screen.get_rect()
+        self.screen_rect = self.screen.get_rect()
 
-        # 우주선을 새로 만들 때는 항상 화면 아래의 중앙에 만듭니다. 
+        # 우주선을 새로 만들 때는 항상 화면 아래의 중앙에 만든다. 
         self.rect.centerx = self.screen_rect.centerx
-        self.rect.bottom = self.screen_rect.bottom
+        self.rect.bottom = self.screen_rect.bottom 
 
-        # 우주선 중앙의 가로 좌표를 부동소수점 숫자로 지정합니다. 
+        # 우주선 중앙의 가로 좌표를 부동소수점 숫자로 저장합니다. 
         self.center = float(self.rect.centerx)
 
         # 이동 플래그
@@ -24,13 +25,12 @@ class Ship():
 
     def update(self):
         """이동 플래그에 따라 위치를 업데이트합니다."""
-        # 우주선 중앙의 가로 좌표를 업데이트합니다. rect 객체가 아닙니다. 
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.center += self.ai_settings.ship_speed_factor
+            self.center += self.ai_setting.ship_speed_factor
         if self.moving_left and self.rect.left > 0:
-            self.center -= self.ai_settings.ship_speed_factor
+            self.center -= self.ai_setting.ship_speed_factor
 
-        # rect 객체를 self.center에 따라 업데이트 합니다. 
+        # rect 객체를 self.center에 따라 업데이트합니다. 
         self.rect.centerx = self.center
 
     def blitme(self):
